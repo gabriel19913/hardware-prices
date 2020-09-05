@@ -6,6 +6,7 @@ from datetime import datetime
 import re
 import json
 from jmespath import search
+import os
 
 
 def convert_type(price):
@@ -76,8 +77,8 @@ def gen_dataframe(headers, store):
 
 
 def save_file(df, store, date):
-    path = '../data/'
-    file_name = path + store + '.xlsx'
+    path = os.path.abspath('data')
+    file_name = path + '/' + store + '.xlsx'
     try:
         with pd.ExcelWriter(file_name, mode='a') as writer:
             df.to_excel(writer, sheet_name=date, header=True, index=False)
